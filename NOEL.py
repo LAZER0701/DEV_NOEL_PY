@@ -1,6 +1,7 @@
 import asyncio, discord
 from dice import *
 from discord.ext import commands
+import os
 
 bot = commands.Bot(command_prefix="@")
 
@@ -39,4 +40,4 @@ async def 회원가입(ctx):
     else:
         await ctx.send("이미 가입하셨습니다.")
 
-bot.run("OTY0OTI5MzE3NjgxMzczMjM0.YlrydA.z7z4_WX9b0h4_J5c-oGqz5AbQQY") #토큰
+bot.run(os.environ['token']) #토큰
