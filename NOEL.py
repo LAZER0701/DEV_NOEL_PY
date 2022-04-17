@@ -1,7 +1,11 @@
+import datetime
 import asyncio, discord
 from dice import *
 from discord.ext import commands
 import os
+
+now = datetime.datetime.now()
+time = f"{str(now.year)}년 {str(now.month)}월 {str(now.day)}일 {str(now.hour)}시 {str(now.minute)}분 {str(now.second)}초"
 
 bot = commands.Bot(command_prefix="@")
 
@@ -29,6 +33,15 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("명령어를 찾지 못했습니다")  
 
+#청소 시스템
+@bot.event
+async def on_message_delete(message):
+    channel = client.get_channel(965098412548685894)
+    embed = discord.Embed(title=f"삭제됨", description=f"유저 : {message.author.mention} 채널 : {message.channel.mention}", color=0xFF0000)
+    embed.add_field(name="삭제된 내용", value=f"내용 : {message.content}", inline=False)
+    embed.set_footer(text=f"{message.guild.name} | {time}")
+    await channel.send(embed=embed)
+        
 # 회원가입 시스템
 @bot.command()
 async def 회원가입(ctx):
